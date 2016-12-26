@@ -18,7 +18,10 @@ import {
   TabBarIOS,
   Image,
   TextInput,
+  AppState,
 } from 'react-native';
+
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // gets the dimensions of your window
 const windowSize = Dimensions.get("window");
@@ -124,14 +127,34 @@ class MyProject extends Component {
   //   )
   // }
 
+
   getPages() {
     var pageElements = [];
     Object.keys(pages).forEach((key, index) => {
       const page = pages[key];
+      var content = null;
+      if (key === "home") {
+        content = (
+          <View style={{ flex: 1, alignItems: "stretch" }}>
+            <ScrollView style={{ flex: 1, backgroundColor: "black" }}></ScrollView>
+            <View style={{ position: "absolute", alignItems: "center", backgroundColor: "transparent", width: windowSize.width, left: 0, bottom: 0 }}>
+              <View style={{ justifyContent: "center", alignItems: "center", height: 50, width: 100, backgroundColor: "blue", borderTopLeftRadius: 50, borderTopRightRadius: 50 }}>
+                <Icon
+                  name={"ios-add"}
+                  color={"white"}
+                  size={44}
+                  style={{ top: 5 }}>
+                </Icon>
+              </View>
+            </View>
+          </View>
+        );
+      }
       pageElements.push(
         <View
           key={index}
-          style={[styles.page, { backgroundColor: page.backgroundColor }]}>
+          style={{ flex: 1, width: windowSize.width, backgroundColor: page.backgroundColor }}>
+          { content }
         </View>
       );
     });
